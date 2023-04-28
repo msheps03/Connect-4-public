@@ -37,6 +37,12 @@ function displayBoard(board){
     }
 }
 
+/*
+below function deals with updating the board following column selection
+"event" is not called again after line "let classNames"
+therefore replace event with the passed column, and likely can remove the rest of .html
+
+*/
 function move(event){
     const Http =  new XMLHttpRequest();
     const url = 'http://127.0.0.1:5000/move2'

@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 # from flask import redirect
-# from json import dump
+from json import dump
 from Gameboard import Gameboard
-import logging
+import logging, requests
 
 
 app = Flask(__name__)
@@ -28,6 +28,7 @@ def player1_connect():
     return render_template("player1_connect.html", status="Pick a Color.")
 
 
+
 '''
 Helper function that sends to all boards don't modify
 '''
@@ -36,6 +37,9 @@ Helper function that sends to all boards don't modify
 @app.route('/autoUpdate', methods=['GET'])
 def updateAllBoards():
     try:
+        #print("Move: %s\nWinner: %s\nColor: %s \n" % (game.board, game.game_result, game.player1))
+        #print(jsonify(move=game.board, winner=game.game_result,
+        #               color=game.player1))
         return jsonify(move=game.board, winner=game.game_result,
                        color=game.player1)
     except Exception:
@@ -119,18 +123,24 @@ def p1_move():
             invalid=False,
             winner=game.game_result)
 
+@app.route('/cartman')
+def eric():
+    move = game.board
+
+
+    data = {'move': move}
+    
+    return jsonify(data)
 
 '''
 Same as '/move1' but instead proccess Player 2
 '''
 
 
-@app.route('/move2', methods=['POST'])
-def p2_move():
+@app.route('/move2/<col>', methods=['POST', 'GET'])
+def p2_move(col):
     player = game.player2
-    colName = request.get_json()["column"]
-    col = int(colName[-1]) - 1
-    moveFailReason = game.move(player, col)
+    moveFailReason = game.move(player, int(col))
     if moveFailReason is not None:
         return jsonify(
             move=game.board,
