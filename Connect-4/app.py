@@ -118,6 +118,7 @@ def p1_move():
             reason=moveFailReason,
             winner=game.game_result)
     else:
+        game.update_player1col(col)
         return jsonify(
             move=game.board,
             invalid=False,
@@ -132,6 +133,10 @@ def eric():
     
     return jsonify(data)
 
+@app.route('/recent/move',methods=['GET'])
+def get_recent():
+    return jsonify(col=game.get_player1col())
+
 '''
 Same as '/move1' but instead proccess Player 2
 '''
@@ -139,6 +144,7 @@ Same as '/move1' but instead proccess Player 2
 
 @app.route('/move2/<col>', methods=['POST', 'GET'])
 def p2_move(col):
+    game.update_player1col(None)
     player = game.player2
     moveFailReason = game.move(player, int(col))
     if moveFailReason is not None:

@@ -10,6 +10,13 @@ class Gameboard():
         self.game_result = ""
         self.current_turn = 'p1'
         self.remaining_moves = 42
+        self.player1col = None
+
+    def update_player1col(self, col):
+        self.player1col = col
+
+    def get_player1col(self):
+        return self.player1col
 
     def newGame(self):
         self.player1 = ""
@@ -18,6 +25,7 @@ class Gameboard():
         self.game_result = ""
         self.current_turn = 'p1'
         self.remaining_moves = 42
+        self.player1col = None
         db.clear()
 
     def updateDB(self):
