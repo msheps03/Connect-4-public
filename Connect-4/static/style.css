@@ -15,6 +15,10 @@
     height: 3em;
 }
 
+.reset{
+    height: 3em;
+}
+
 .board{
     position: absolute;
     left: 50%;

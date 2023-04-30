@@ -53,11 +53,13 @@ class Gameboard():
 
     def move(self, player, col):
         if self.game_result != "":
-            return "Game result already declared."
+            return "Game Result Already Declared"
         elif self.board[0][col] != 0:
-            return "Cannot insert into a filled column."
+            return "Cannot Insert into a Filled Column"
+        elif self.current_turn == "p1":
+            return "Please Pick a Color First"
         elif self.current_turn != player:
-            return "Not your turn."
+            return "Please Wait for Opponent to Make Move"
         else:
             row = next(
                 row for row in range(5, -1, -1) if self.board[row][col] == 0

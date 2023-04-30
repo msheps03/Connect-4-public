@@ -25,7 +25,7 @@ Initial Webpage where gameboard is initialized
 @app.route('/', methods=['GET'])
 def player1_connect():
     game.newGame()
-    return render_template("player1_connect.html", status="Pick a Color.")
+    return render_template("player1_connect.html", status="Please Pick a Color", mstatus="")
 
 
 
@@ -40,7 +40,7 @@ def updateAllBoards():
         #print("Move: %s\nWinner: %s\nColor: %s \n" % (game.board, game.game_result, game.player1))
         #print(jsonify(move=game.board, winner=game.game_result,
         #               color=game.player1))
-        return jsonify(move=game.board, winner=game.game_result,
+        return jsonify(col=game.get_player1col(),move=game.board, winner=game.game_result,
                        color=game.player1)
     except Exception:
         return jsonify(move="")
@@ -64,7 +64,7 @@ def player1_config():
             game.player2 = "yellow"
         elif game.player1 == "yellow":
             game.player2 = "red"
-    return render_template("player1_connect.html", status=game.player1)
+    return render_template("player1_connect.html", status="", mstatus="")
 
 
 '''

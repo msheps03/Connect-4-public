@@ -32,7 +32,18 @@ function getNewBoard(){
 
                     displayBoard(data['move'])
                     if(data['winner'].length > 0){
-                        document.getElementById('status').innerHTML = "Winner is: " + data['winner']
+                        document.getElementById('mstatus').innerHTML = data['winner'].charAt(0).toUpperCase()+ data['winner'].slice(1) + " Wins!"
+                        showResetButton()
+                    }else{
+                        console.log(data)
+                        if(data['color']!=''){
+                            if(data['col'] == null && document.getElementById('mstatus').innerHTML == "Please Wait for Opponent to Make Move"){
+                                document.getElementById('status').innerHTML = ""
+                            }
+                            if(data['col'] == null){
+                                document.getElementById('mstatus').innerHTML = data['color'].charAt(0).toUpperCase() + data['color'].slice(1)+": Please Make Move"
+                            }
+                        }
                     }
 
                 }
@@ -104,7 +115,9 @@ function move(event){
                     console.log(data)
                    //displayBoard(data['move'])
                     if(data['winner'].length > 0){
-                        document.getElementById('status').innerHTML =  "Winner is: " + data['winner']
+                        document.getElementById('mstatus').innerHTML =  data['winner'].charAt(0).toUpperCase()+ data['winner'].slice(1) + " Wins!"
+                        document.getElementById('status').innerHTML = ""
+                        showResetButton()
                     }
 
                     else{
@@ -115,7 +128,11 @@ function move(event){
                     displayBoard(data['move'])
                     document.getElementById('status').innerHTML = ""
                     if(data['winner'].length > 0){
-                        document.getElementById('status').innerHTML = data['winner']
+                        document.getElementById('mstatus').innerHTML = data['winner'].charAt(0).toUpperCase()+ data['winner'].slice(1) + " Wins!"
+                        showResetButton()
+                    }
+                    else{
+                        document.getElementById('mstatus').innerHTML = "Please Wait for Opponent to Make Move"
                     }
                     
                 }
@@ -128,6 +145,9 @@ function move(event){
 
 function hideLink(){
     document.getElementById("p2Link").style.display = "none"
+}
+function showResetButton(){
+    document.getElementById("resetbtn").removeAttribute("hidden")
 }
 
 autoUpdate()
